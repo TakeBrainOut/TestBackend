@@ -1,0 +1,67 @@
+//
+   Created by kirill on 17.2.16.
+
+.container
+    .page-header
+        h1 Данные теста
+    .col-lg-4
+        .form-group
+            select#subject_select.form-control(ng-model='testData.info.subject')
+                option(ng-repeat='subject in subjects', value='{{subject}}')  {{subject}}
+    .col-lg-4
+        .input-group
+            span#basic-addon1.input-group-addon Вариант
+            input.form-control(type='text', ng-model='testData.info.var', placeholder='введите вариант', aria-describedby='basic-addon1')
+    .col-lg-4
+        .input-group
+            span#basic-addon2.input-group-addon Год
+            input.form-control(type='text', placeholder='введите год', aria-describedby='basic-addon2', ng-model='testData.info.year')
+.container
+    .page-header
+        h1 Вопросы
+    .form-group
+        label(for='quest_select') Вопросы
+        select#quest_select.form-control(ng-model='cur_index')
+            option(ng-repeat='question in testData.questions', value='{{testData.questions.indexOf(question)}}', ng-selected='testData.questions.indexOf(question) == cur_index')
+                | {{question.number}}
+    .form-group
+        button.btn.btn-success(type='button', ng-click='onAddQuest()') Добавить
+        button.btn.btn-warning(type='button', ng-click='onDeleteQuest()') Удалить
+    p
+        .form-group
+            label.col-sm-2.control-label Номер вопроса
+            .col-sm-10
+                input#inputPassword3.form-control(type='text', placeholder='Введите вопрос', ng-model='testData.questions[cur_index].number')
+    p
+        .form-group
+            label(for='text_question') Текст вопроса:
+            textarea#text_question.form-control(rows='10', ng-model='testData.questions[cur_index].text')
+    h3 Ответы
+    .input-group
+        input.form-control(type='text', placeholder='Введите ответ', ng-model='answ_add')
+        span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='onAnswAdd(answ_add)') Добавить
+            button.btn.btn-default(type='button', ng-click='onAnswDelete()') Удалить
+    ul.list-group
+        li.list-group-item(ng-repeat='answ in testData.questions[cur_index].answ')
+            .input-group
+                span.input-group-addon
+                    input(type='checkbox', ng-checked='answ.isCorrect', ng-click='onClickCheckBox($index)')
+                input.form-control(type='text', ng-model='answ.text')
+
+    h3 Правильные ответы (через пробел)
+    .input-group
+        input.form-control(type='text', placeholder='Введите ответ', ng-model='cor_answ', ng-change='corAnswChange()')
+
+    //.row(ng-repeat='answ in testData.questions[cur_index].answ')
+    //    .input-group
+    //        span.input-group-addon
+    //            input(type='checkbox', ng-checked='answ.isCorrect', ng-click='onClickCheckBox($index)')
+    //        input.form-control(type='text', ng-model='answ.text')
+
+    .page-header
+        h1 Сформированный JSON
+        textarea.form-control(rows='10') {{testData}}
+
+    button.btn.btn-success(type='button', ng-click='onSendToServer()') Отправить на сервер
+

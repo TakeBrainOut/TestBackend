@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    //#login-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true', style='display: none;')
+    //    .modal-dialog
+    //        .loginmodal-container
+    //            .div(ui-view='login')
+    //            .login-help
+    //                a(ui-sref='signin') Войти
+    //                | -
+    //                a(ui-sref='registration') Регистрация
+    //
+    //        // /.navbar-collapse
+    .navbar.navbar-default.navbar-fixed-top
+        .container
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='true', aria-controls='navbar')
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='#') Вопросодобовлялка
+            center
+                #navbar-main.navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li
+                            a(href='#/view') Просмотр
+                        li
+                            a(href='#/add/new') Добавить
+                        li
+                            a(href='#/users') Пользоветели
+                    form.navbar-form.navbar-right(role='search')
+                        .div(ui-view='login', ng-controller='AuthCtrl')
+    .container.main_content(ng-view='')
+
+

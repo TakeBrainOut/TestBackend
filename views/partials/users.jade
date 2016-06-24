@@ -1,0 +1,21 @@
+//
+   Created by kirill on 25.3.16.
+
+.panel.panel-default
+    .panel-heading Пользователи
+    table.table.table-hover
+        thead
+            tr
+                th Ник
+                th Дата регистрации
+                th Действие
+        tbody
+            tr(ng-repeat='user in usersArray')
+                td {{user.name}}
+                td {{user.date_reg}}
+                td
+                    .checkbox
+                        input(type='checkbox', ng-checked='user.isConfirmed', ng-click='changeActivation(user)')
+
+
+
