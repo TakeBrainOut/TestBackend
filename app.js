@@ -16,6 +16,11 @@ var signup = require('./routes/signup');
 var auth = require('./routes/auth');
 var userinfo = require('./routes/userinfo');
 var users = require('./routes/users');
+var upd = require('./routes/update');
+var check = require('./routes/updCheck');
+var fcmTokenRoute = require('./routes/fcmtokens');
+var notification = require('./routes/notification');
+
 var app = express();
 
 require('./config/passport')(passport);
@@ -44,7 +49,7 @@ app.use(logger('dev'));
 
 // get our request parameters
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -56,6 +61,10 @@ app.use('/signup', signup);
 app.use('/auth', auth);
 app.use('/api/userinfo', userinfo);
 app.use('/api/users', users);
+app.use('/api/update', upd);
+app.use('/api/check', check);
+app.use('/api/fcmtokens/', fcmTokenRoute);
+app.use('/api/notification', notification);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -28,6 +28,7 @@ router.get('/:id',passport.authenticate('jwt', { session: false}), function (req
 });
 
 router.put('/:id',passport.authenticate('jwt', { session: false}), function (req, res, next){
+  console.log(req.body);
   req.body.updated_at = Date.now();
   Test.findByIdAndUpdate(req.params.id, req.body, function (err, post){
     if (err) return next(err);

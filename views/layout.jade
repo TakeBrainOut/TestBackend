@@ -6,8 +6,10 @@ html(lang='en', ng-app='myApp')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='/vendor/bower_components/bootstrap/dist/css/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/vendor/bower_components/textAngular/dist/textAngular.css')
+
         title Вопросодобавлялка
-    body
+        body
         block content
         script(src='/vendor/bower_components/jquery/dist/jquery.min.js')
             script(src='/javascripts/libs/lib.js')
@@ -21,4 +23,8 @@ html(lang='en', ng-app='myApp')
             script(src = '/javascripts/view/view.js')
             script(src = 'javascripts/auth.js')
             script(src =  'javascripts/users_adm/users.js')
+            script(src = '/javascripts/notifications/notification.js')
+        script(src='/vendor/bower_components/textAngular/dist/textAngular-rangy.min.js')
+        script(src='/vendor/bower_components/textAngular/dist/textAngular-sanitize.min.js')
+        script(src='/vendor/bower_components/textAngular/dist/textAngular.min.js')
 

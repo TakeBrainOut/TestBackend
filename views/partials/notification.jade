@@ -1,0 +1,22 @@
+//
+   Created by kirill on 30.06.16.
+.container
+    .page-header
+        h1 Уведомления
+
+    .form-group
+        label(for='title_notification') Название:
+        textarea#title_notification.form-control(rows='1', ng-model='notification.title')
+
+    .form-group
+        label(for='text_notification') Текст уведомления:
+        textarea#text_notification.form-control(rows='10', ng-model='notification.text')
+
+    button.btn.btn-success(type='button', ng-click='sendNotification()') Отправить уведомление
+    p
+    .form-group
+        label(for='text_answer') Ответ от сервера:
+        textarea#text_answer.form-control(rows='10', ng-model='notification_answer', readonly="")
+
+
+    //div(text-angular='', ng-model='htmlVariable')
