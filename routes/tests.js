@@ -6,11 +6,14 @@ var mongoose = require('mongoose');
 var Test = require('../models/Test.js');
 
 router.get('/', function(req, res, next) {
-  Test.find(function(err, tests){
+  Test.find({}).lean().exec(function (err, tests) {
     if (err) return next(err);
-    res.json(tests);
+      for (var i = 0; i < tests.length; i++){
+        tests[i].questions = tests[i].questions.length;
+      }
+      res.json(tests);
+  })
   });
-});
 
 router.post('/',passport.authenticate('jwt', { session: false}), function(req, res, next){
   req.body.updated_at = Date.now();
@@ -28,7 +31,6 @@ router.get('/:id',passport.authenticate('jwt', { session: false}), function (req
 });
 
 router.put('/:id',passport.authenticate('jwt', { session: false}), function (req, res, next){
-  console.log(req.body);
   req.body.updated_at = Date.now();
   Test.findByIdAndUpdate(req.params.id, req.body, function (err, post){
     if (err) return next(err);

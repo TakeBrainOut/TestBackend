@@ -18,29 +18,33 @@ notifReq.headers({
 router.post('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
     FcmToken.find(function (err, resTokens) {
         if (err) return next(err);
-        var tokenArray = [];
-        for (var i = 0; i < resTokens.length; i++) {
-            tokenArray.push(resTokens[i].token);
-        }
-        notifInfo = req.body;
-        notifReq.send(
-            {
-                "registration_ids": tokenArray,
-                "notification": {
-                    "body": notifInfo.text,
-                    "title": notifInfo.title,
-                    "icon": "myIcon",
-                    "sound": "mySound"
-                }
+
+        for (var i = 0; i < resTokens.length / 1000; i++){
+           var slicedTokens = resTokens.slice(i * 1000, (i+1) * 1000);
+            var tokenArray = [];
+            for (var j = 0; j < slicedTokens.length; i++) {
+                tokenArray.push(slicedTokens[j].token);
             }
-        );
+            notifInfo = req.body;
+            notifReq.send(
+                {
+                    "registration_ids": tokenArray,
+                    "notification": {
+                        "body": notifInfo.text,
+                        "title": notifInfo.title,
+                        "icon": "myIcon",
+                        "sound": "mySound"
+                    }
+                }
+            );
 
-        notifReq.end(function (response) {
-            res.json(response.body);
-        }, function (error) {
-            return next(error);
-        });
+            notifReq.end(function (response) {
+                res.json(response.body);
+            }, function (error) {
+                return next(error);
+            });
 
+        };
     });
 });
 

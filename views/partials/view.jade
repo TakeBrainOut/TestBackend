@@ -1,6 +1,3 @@
-//
-   Created by kirill on 17.2.16.
-
 .panel.panel-default(ng-repeat='subject in subjects')
     .panel-heading {{subject}}
     table.table.table-hover
@@ -16,6 +13,6 @@
                 td {{test.info.var}}
                 td {{test.info.year}}
                 td {{test.updated_at}}
-                td {{test.questions.length}}
+                td {{test.questions}}
                 td
                     button.btn.btn-warning(type='button', ng-click='deleteItem(test)') Удалить

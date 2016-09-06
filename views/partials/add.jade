@@ -35,7 +35,7 @@
     p
         .form-group
             label(for='text_question') Текст вопроса:
-            textarea#text_question.form-control(rows='10', ng-model='testData.questions[cur_index].text')
+            div#text_question(text-angular='', ng-model='testData.questions[cur_index].text')
     h3 Ответы
     .input-group
         input.form-control(type='text', placeholder='Введите ответ', ng-model='answ_add')

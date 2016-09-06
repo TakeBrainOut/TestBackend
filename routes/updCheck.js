@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var Test = require('../models/Test.js');
+var async = require('async');
 
 
 router.post('/', function (req, res, next) {
@@ -15,56 +16,27 @@ router.post('/', function (req, res, next) {
     else {
         req_body = new Array(req_body);
     }
-    // var result = [];
-    // if (req_body != undefined) {
-    //
-    //     req_body.forEach(function (item, i, array) {
-    //         Test.find({"info.subject": item.subject, updated_at: {$gt: item.last_update}}).count(function (err, count) {
-    //             console.log(item);
-    //
-    //             if (err) return next(err);
-    //             if (count > 0) {
-    //                 var resObj = {"subj": item.subject, "count": count, "update": item.last_update};
-    //                 result.push(resObj);
-    //
-    //
-    //                 if (i == (array.length - 1)) {
-    //                     console.log(result);
-    //                     res.json(result);
-    //                 }
-    //             }
-    //             else {
-    //                 res.json([]);
-    //             }
-    //         });
-    //
-    //     });
-    // }
-    // else {
-    //     res.json([]);
-    //
-    // };
-    req_body.forEach(function (item, i, array) {
-        // var time = item.last_update;
-        // time.setMilliseconds(time.getMilliseconds());
+    var result = [];
+    if (req_body != undefined) {
+        async.map(req_body, function(item, next){
+          Test.find({"info.subject": item.subject, updated_at: {$gt: item.last_update}}).count(function (err, count) {
+              var resObj = {"subj": item.subject, "count": count, "update": item.last_update};
+              next(err, resObj);
+          });
+        },
+        function(err, result){
+          if (err) return next(err);
+          console.log(result);
 
-        var time = new Date(item.last_update);
-        time.setMilliseconds(time.getMilliseconds() + 100000000);
+          res.json(result.filter(function(item){
+            return item.count > 0;
+          }));
+        });
+    }
+    else {
+        res.json([]);
 
-        Test.find({
-            "info.subject": item.subject
-        })
-            .where("updated_at")
-            .gt(time)
-            .exec(function (err, result) {
-                console.log(result);
-                // console.00log("%%%%%%%%%%%%%%%%%SEARCH" + item.last_update.getMilliseconds() + " +++++++++++++++++++++++++++++RESULT" + result[0].updated_at.getMilliseconds());
-            });
-
-
-    });
-    res.json([]);
-
+    };
 });
 
 module.exports = router;

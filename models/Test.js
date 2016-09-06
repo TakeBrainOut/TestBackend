@@ -1,6 +1,3 @@
-/**
- * Created by kirill on 15.2.16.
- */
 var mongoose = require('mongoose');
 
 var TestSchema = new mongoose.Schema({

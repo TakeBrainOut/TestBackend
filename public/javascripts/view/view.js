@@ -1,7 +1,3 @@
-/**
- * Created by kirill on 17.2.16.
- */
-
 angular.module('myApp.view', ['ngResource', 'ngRoute'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
@@ -58,4 +54,4 @@ Array.prototype.unique = function(){
         }
     }
     return arr;
-}
+};
