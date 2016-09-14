@@ -8,7 +8,7 @@ var Test = require('../models/Test.js');
 var async = require('async');
 
 
-router.post('/', function (req, res, next) {
+router.post('/',passport.authenticate('jwt', { session: false}), function (req, res, next) {
     var req_body = [];
     if (Array.isArray(req.body)) {
         req_body = req.body;

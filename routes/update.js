@@ -7,7 +7,7 @@ var passport = require('passport');
 var Test = require('../models/Test.js');
 
 
-router.post('/', function (req, res, next) {
+router.post('/',passport.authenticate('jwt', { session: false}), function (req, res, next) {
   var req_body = [];
   if (Array.isArray(req.body)) {
     req_body = req.body;

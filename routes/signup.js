@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 
-router.post('/', function(req, res){
+router.post('/',passport.authenticate('jwt', { session: false}), function(req, res){
     if (!req.body.name || !req.body.password) {
         res.json({success: false, msg: 'Please pass name and password.'});
     } else {

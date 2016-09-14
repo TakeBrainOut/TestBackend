@@ -1,6 +1,7 @@
 //
    Created by kirill on 17.2.16.
 
+
 .container
     .page-header
         h1 Данные теста
@@ -16,7 +17,7 @@
         .input-group
             span#basic-addon2.input-group-addon Год
             input.form-control(type='text', placeholder='введите год', aria-describedby='basic-addon2', ng-model='testData.info.year')
-.container
+.container(ng-keydown="handleKey($event)")
     .page-header
         h1 Вопросы
     .form-group
@@ -53,12 +54,9 @@
     .input-group
         input.form-control(type='text', placeholder='Введите ответ', ng-model='cor_answ', ng-change='corAnswChange()')
 
-    //.row(ng-repeat='answ in testData.questions[cur_index].answ')
-    //    .input-group
-    //        span.input-group-addon
-    //            input(type='checkbox', ng-checked='answ.isCorrect', ng-click='onClickCheckBox($index)')
-    //        input.form-control(type='text', ng-model='answ.text')
 
+    textarea.span6(rows='10', placeholder="What's up?", required='', ng-model='fullCorrectAnswers')
+    button.btn.btn-success(type='button', ng-click='testAction()') Тестовая кнопка
     .page-header
         h1 Сформированный JSON
         textarea.form-control(rows='10') {{testData}}

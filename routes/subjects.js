@@ -7,7 +7,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Test = require('../models/Test.js');
 
-router.get('/', function(req, res, next){
+router.get('/',passport.authenticate('jwt', { session: false}), function(req, res, next){
     var query = Test.find({}).select('info.subject -_id');
     query.exec(function(err, value){
         var subjects = [];

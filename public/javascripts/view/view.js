@@ -27,6 +27,12 @@ angular.module('myApp.view', ['ngResource', 'ngRoute'])
             return array.unique();
         };
 
+        $scope.getFormatedDate = function(times){
+            var date = new Date(times);
+            console.log(date.toString());
+            return date.toString();
+        }
+
         $scope.goToItem = function (id) {
             $location.path('/add/' + id);
         }

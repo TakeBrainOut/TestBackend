@@ -5,7 +5,7 @@ var passport	= require('passport');
 var mongoose = require('mongoose');
 var Test = require('../models/Test.js');
 
-router.get('/', function(req, res, next) {
+router.get('/',passport.authenticate('jwt', { session: false}), function(req, res, next) {
   Test.find({}).lean().exec(function (err, tests) {
     if (err) return next(err);
       for (var i = 0; i < tests.length; i++){
@@ -19,7 +19,7 @@ router.post('/',passport.authenticate('jwt', { session: false}), function(req, r
   req.body.updated_at = Date.now();
   Test.create(req.body, function (err, post){
     if (err) return next(err);
-    res.json(post);
+    res.json({info: post.info, status: "ok"});
   });
 });
 

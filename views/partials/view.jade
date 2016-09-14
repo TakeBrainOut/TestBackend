@@ -9,10 +9,10 @@
                 th Вопросы
                 th Действие
         tbody
-            tr(ng-repeat='test in testsArray | filter: subject' ng-click='goToItem(test._id)')
+            tr(ng-repeat="test in testsArray | filter: subject | orderBy:['info.year', 'info.var']" ng-click='goToItem(test._id)')
                 td {{test.info.var}}
                 td {{test.info.year}}
-                td {{test.updated_at}}
+                td {{getFormatedDate(test.updated_at)}}
                 td {{test.questions}}
                 td
                     button.btn.btn-warning(type='button', ng-click='deleteItem(test)') Удалить

@@ -18,7 +18,7 @@ var TestSchema = new mongoose.Schema({
         },
         unique: true
     },
-    updated_at: Date,
+    updated_at: Number,
     questions: [{
         number:{
             type: String,
